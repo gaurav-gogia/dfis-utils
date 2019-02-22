@@ -7,17 +7,17 @@ import (
 )
 
 func scan() {
-	var activeThreads int
+	var active int
 	done := make(chan bool)
 
 	for port := MINPORT; port <= MAXPORT; port++ {
 		go tcptest(IP, port, done)
-		activeThreads++
+		active++
 	}
 
-	for activeThreads > 0 {
+	for active > 0 {
 		<-done
-		activeThreads--
+		active--
 	}
 }
 
