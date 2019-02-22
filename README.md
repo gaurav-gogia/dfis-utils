@@ -5,6 +5,12 @@
 # dfis-utils
 A repo of utilities built over some period for forensics, anti-forensics, security and analytical purposes 
 
+## Features
+1. Versatile: A number of different tools for your kit
+2. Brevity: Avoids filling console with too many error logs
+3. Clean: Easy to read, millimalistic code
+4. Fast: Multi-threaded tools, making them quick & efficient
+
 ## Index
 Listing utilities with their respective descriptions.
 
