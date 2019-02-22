@@ -19,6 +19,9 @@ func main() {
 
 	fmt.Println("Grabbing banners ....")
 	grab()
+
+	fmt.Println("Resolving names for all subnets ....")
+	name()
 }
 
 func handerr(err error) {
