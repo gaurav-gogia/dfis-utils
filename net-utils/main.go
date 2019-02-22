@@ -8,6 +8,7 @@ import (
 // Global Constants
 const (
 	IP      = "13.85.77.179" // mini client chat
+	SUBIP   = "13.85.77"
 	MINPORT = 1
 	MAXPORT = 65535
 )
