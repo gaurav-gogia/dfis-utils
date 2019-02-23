@@ -1,4 +1,4 @@
-[![Go Report Card](https://goreportcard.com/badge/github.com/gaurav-gogia/dfis-utils)](https://goreportcard.com/report/github.com/gaurav-gogia/dfis-utils)  [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/DesmondANIMUS/KameKazi/issues)
+[![Go Report Card](https://goreportcard.com/badge/github.com/gaurav-gogia/dfis-utils)](https://goreportcard.com/report/github.com/gaurav-gogia/dfis-utils)  [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/DesmondANIMUS/dfis-utils/issues)
 
 [![Banner](./facebook_cover_photo_2.png)](./facebook_cover_photo_2.png)
 
