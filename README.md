@@ -18,3 +18,4 @@ Listing utilities with their respective descriptions.
 | :--: | ------ |
 | [Network Utilities](./net-utils) | A set of tools for network monitoring, intel gathering etc. |
 | [Stegnographic Utilities](./stego-utils) | Tools for stegenographic image creation & detection |
+| [Disk/File Utilities](./file-utils) | Small forensic utilities for disk forensic operations |
