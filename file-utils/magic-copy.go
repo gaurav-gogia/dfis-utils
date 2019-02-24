@@ -13,7 +13,6 @@ func extract(root, dst string, in int8) {
 	var count int64
 	filepath.Walk(root, func(filepath string, info os.FileInfo, err error) error {
 		if err != nil {
-			fmt.Println("\n", err)
 			return nil
 		}
 		if !info.IsDir() {
