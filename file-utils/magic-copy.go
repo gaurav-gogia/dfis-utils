@@ -11,50 +11,20 @@ import (
 
 func extract(root, dst string, in int8) {
 	var count int64
+
 	filepath.Walk(root, func(filepath string, info os.FileInfo, err error) error {
-		if err != nil {
-			return nil
-		}
 		if !info.IsDir() {
 			buf, err := ioutil.ReadFile(filepath)
 
 			switch in {
 			case IMAGE:
-				if filetype.IsImage(buf) {
-					count++
-					if err := ioutil.WriteFile(dst+info.Name(), buf, 0644); err != nil {
-						fmt.Println(err)
-						return err
-					}
-					fmt.Printf("\rImage File Found: %s, Count: %v", info.Name(), count)
-				}
+				copyimage(&buf, &count, dst, info.Name())
 			case ARCHIVE:
-				if filetype.IsVideo(buf) {
-					count++
-					if err := ioutil.WriteFile(dst+info.Name(), buf, 0644); err != nil {
-						fmt.Println(err)
-						return err
-					}
-					fmt.Printf("\rVideo File Found: %s, Count: %v", info.Name(), count)
-				}
+				copyarchive(&buf, &count, dst, info.Name())
 			case AUDIO:
-				if filetype.IsAudio(buf) {
-					count++
-					if err := ioutil.WriteFile(dst+info.Name(), buf, 0644); err != nil {
-						fmt.Println(err)
-						return err
-					}
-					fmt.Printf("\rAudio File Found: %s, Count: %v", info.Name(), count)
-				}
+				copyaudio(&buf, &count, dst, info.Name())
 			case VIDEO:
-				if filetype.IsArchive(buf) {
-					count++
-					if err := ioutil.WriteFile(dst+info.Name(), buf, 0644); err != nil {
-						fmt.Println(err)
-						return err
-					}
-					fmt.Printf("\rArchive File Found: %s, Count: %v", info.Name(), count)
-				}
+				copyvideo(&buf, &count, dst, info.Name())
 			default:
 				fmt.Println("Wrong Choice")
 				return nil
@@ -64,4 +34,33 @@ func extract(root, dst string, in int8) {
 		}
 		return nil
 	})
+}
+
+func copyimage(buf *[]byte, count *int64, dst, name string) {
+	if filetype.IsImage(*buf) {
+		*count++
+		ioutil.WriteFile(dst+name, *buf, 0644)
+		fmt.Printf("\rImage File Found: %s, Count: %v", name, count)
+	}
+}
+func copyvideo(buf *[]byte, count *int64, dst, name string) {
+	if filetype.IsVideo(*buf) {
+		*count++
+		ioutil.WriteFile(dst+name, *buf, 0644)
+		fmt.Printf("\rImage File Found: %s, Count: %v", name, count)
+	}
+}
+func copyaudio(buf *[]byte, count *int64, dst, name string) {
+	if filetype.IsAudio(*buf) {
+		*count++
+		ioutil.WriteFile(dst+name, *buf, 0644)
+		fmt.Printf("\rImage File Found: %s, Count: %v", name, count)
+	}
+}
+func copyarchive(buf *[]byte, count *int64, dst, name string) {
+	if filetype.IsArchive(*buf) {
+		*count++
+		ioutil.WriteFile(dst+name, *buf, 0644)
+		fmt.Printf("\rImage File Found: %s, Count: %v", name, count)
+	}
 }

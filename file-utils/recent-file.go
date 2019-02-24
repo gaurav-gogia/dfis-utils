@@ -11,10 +11,6 @@ func recent(root string) {
 	var files []filenode
 
 	filepath.Walk(root, func(filepath string, info os.FileInfo, err error) error {
-		if err != nil {
-			return nil
-		}
-
 		if info.IsDir() {
 			return nil
 		}
