@@ -11,8 +11,6 @@ func main() {
 
 	fmt.Println("Detecting a stegnographic archive")
 	detect("./steggy.png")
-
-	fmt.Println("Done!")
 }
 
 func handerr(err error) {
