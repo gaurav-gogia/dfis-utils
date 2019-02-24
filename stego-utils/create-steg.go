@@ -7,18 +7,18 @@ import (
 	"os"
 )
 
-func create() {
-	prep()
+func create(original, stegno, ziparch, data1, data2 string) {
+	prep(data1, data2, ziparch)
 
-	org, err := os.Open("./noise.png")
+	org, err := os.Open(original)
 	handerr(err)
 	defer org.Close()
 
-	zipped, err := os.Open("./data/arch.zip")
+	zipped, err := os.Open(ziparch)
 	handerr(err)
 	defer zipped.Close()
 
-	mut, err := os.Create("steggy.png")
+	mut, err := os.Create(stegno)
 	handerr(err)
 	defer mut.Close()
 
@@ -29,16 +29,16 @@ func create() {
 	handerr(err)
 }
 
-func prep() {
+func prep(data1, data2, ziparch string) {
 	// read files
-	one, err := ioutil.ReadFile("./data/t1.txt")
+	one, err := ioutil.ReadFile(data1)
 	handerr(err)
 
-	two, err := ioutil.ReadFile("./data/t2.txt")
+	two, err := ioutil.ReadFile(data2)
 	handerr(err)
 
 	// get zip file creator
-	out, err := os.Create("./data/arch.zip")
+	out, err := os.Create(ziparch)
 	handerr(err)
 	defer out.Close()
 

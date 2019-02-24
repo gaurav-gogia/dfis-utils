@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func noise() {
+func noise(path string) {
 	img := image.NewRGBA(image.Rect(0, 0, 500, 500))
 
 	for pix := 0; pix < 500*500; pix++ {
@@ -18,7 +18,7 @@ func noise() {
 		img.Pix[3+offset] = 255
 	}
 
-	out, err := os.Create("noise.png")
+	out, err := os.Create(path)
 	handerr(err)
 
 	handerr(png.Encode(out, img))

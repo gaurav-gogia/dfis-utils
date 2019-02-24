@@ -7,11 +7,11 @@ import (
 	"os"
 )
 
-func detect() {
+func detect(path string) {
 	zipsig := []byte{'\x4b', '\x03', '\x04'}
 	var flag bool
 
-	file, err := os.Open("./noise.png")
+	file, err := os.Open(path)
 	handerr(err)
 	defer file.Close()
 
@@ -25,7 +25,6 @@ func detect() {
 		handerr(err)
 
 		if thisbyte == '\x50' {
-			byteslice := make([]byte, 3)
 			byteslice, err := bfio.Peek(3)
 			handerr(err)
 

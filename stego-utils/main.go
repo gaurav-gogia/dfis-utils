@@ -4,13 +4,13 @@ import "fmt"
 
 func main() {
 	fmt.Println("Generating image with random noise")
-	//	noise()
+	noise("noise.png")
 
 	fmt.Println("Creating a stengnographic archive")
-	//	create()
+	create("./noise.png", "./data/arch.zip", "steggy.png", "./data/t1.txt", "./data/t2.txt")
 
 	fmt.Println("Detecting a stegnographic archive")
-	detect()
+	detect("./steggy.png")
 
 	fmt.Println("Done!")
 }
