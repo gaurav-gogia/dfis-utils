@@ -1,36 +1,40 @@
 package main
 
-import (
-	"fmt"
-	"log"
-)
+import "fmt"
 
 // Global Constants
 const (
-	URL      = "miniclientchat.azurewebsites.net:80"
-	IP       = "13.85.77.179" // mini client chat
-	SUBIP    = "13.85.77"
+	HOST     = "kamekazi-169920.appspot.com"
+	URL      = "kamekazi-169920.appspot.com:80"
+	IP       = "216.58.196.244" // kamekazi
+	SUBIP    = "216.58.196"
 	MINPORT  = 1
 	MAXBYTES = 2048
 	MAXPORT  = 65535
 )
 
 func main() {
-	fmt.Println("Scanning ports ....")
+	fmt.Println("Looking up hostnames for IP ....")
+	iptohost()
+
+	fmt.Println("\nLooking up IPs for hostname ....")
+	hosttoip()
+
+	fmt.Println("\nLooking up MX records ....")
+	mxrecord()
+
+	fmt.Println("\nLooking up nameservers ....")
+	nameserver()
+
+	fmt.Println("\nScanning ports ....")
 	scan()
 
-	fmt.Println("Grabbing banners ....")
+	fmt.Println("\nGrabbing banners ....")
 	grab()
 
-	fmt.Println("Resolving names for all subnets ....")
+	fmt.Println("\nResolving names for all subnets ....")
 	name()
 
-	fmt.Println("Commencing fuzz ....")
+	fmt.Println("\nCommencing fuzz ....")
 	fuzz()
-}
-
-func handerr(err error) {
-	if err != nil {
-		log.Println(err)
-	}
 }
