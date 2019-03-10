@@ -49,12 +49,16 @@ func main() {
 	fmt.Println("\nCapturing with filters added on interface: ", DEVICE)
 	box.capfilter()
 
-	fmt.Println("Saving packets ....")
+	fmt.Println("\nSaving packets ....")
 	box.save()
 
-	fmt.Println("Reading saved packets ....")
+	fmt.Println("\nReading saved packets ....")
 	box.read()
 
-	fmt.Println("Decoding packet layers ....")
+	fmt.Println("\nDecoding packet layers ....")
 	box.decode()
+
+	fmt.Println("\nByte packet conversion")
+	payload := []byte{2, 4, 6}
+	conv(payload)
 }
