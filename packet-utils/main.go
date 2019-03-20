@@ -58,7 +58,13 @@ func main() {
 	fmt.Println("\nDecoding packet layers ....")
 	box.decode()
 
-	fmt.Println("\nByte packet conversion")
+	fmt.Println("\nByte packet conversion ....")
 	payload := []byte{2, 4, 6}
 	conv(payload)
+
+	fmt.Println("\nCreating proper packets ....")
+	box.make()
+
+	fmt.Println("\nFast Decoding")
+	box.fast()
 }
