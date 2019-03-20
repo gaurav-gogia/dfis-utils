@@ -9,7 +9,7 @@ import (
 	filetype "gopkg.in/h2non/filetype.v1"
 )
 
-func extract(root, dst string, in int8) {
+func extract(root, dst string, in int) {
 	var count int64
 
 	filepath.Walk(root, func(filepath string, info os.FileInfo, err error) error {
