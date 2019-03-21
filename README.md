@@ -21,3 +21,4 @@ Listing utilities with their respective descriptions.
 | [Disk/File Utilities](./file-utils) | Small forensic utilities for disk forensic operations |
 | [Packet Level Utilities](./packet-utils) | Tools for saving, capturing and decoding raw network packets |
 | [Cryptographic Utilities](./crypto-utils) | A set of cryptographic utilities like hashing, csprn generation etc. |
+| [Web Utilities](./web-utils) | A set of web crawling, osint and pentesting utilities |
