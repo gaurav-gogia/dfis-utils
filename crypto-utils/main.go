@@ -4,7 +4,7 @@ import "fmt"
 
 // Global constants
 const (
-	PATH = "./main.go"
+	PATH = "./test"
 	PASS = "secretstuff"
 )
 
@@ -22,7 +22,7 @@ func main() {
 	randnum()
 
 	fmt.Println("\nAES Crypto ....")
-	adves(PASS)
+	adves(PATH)
 }
 
 func handle(err error) {
