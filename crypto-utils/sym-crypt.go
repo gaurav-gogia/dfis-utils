@@ -52,7 +52,6 @@ func decode(key, cip []byte) ([]byte, error) {
 		return nil, err
 	}
 
-	//txt := make([]byte, len(cip)+aes.BlockSize)
 	iv := cip[:aes.BlockSize]
 	cip = cip[aes.BlockSize:]
 
