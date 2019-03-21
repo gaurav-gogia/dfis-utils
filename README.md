@@ -20,3 +20,4 @@ Listing utilities with their respective descriptions.
 | [Stegnographic Utilities](./stego-utils) | Tools for stegenographic image creation & detection |
 | [Disk/File Utilities](./file-utils) | Small forensic utilities for disk forensic operations |
 | [Packet Level Utilities](./packet-utils) | Tools for saving, capturing and decoding raw network packets |
+| [Cryptographic Utilities](./crypto-utils) | A set of cryptographic utilities like hashing, csprn generation etc. |
