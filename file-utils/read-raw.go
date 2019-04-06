@@ -9,8 +9,8 @@ import (
 
 // raw function performs low level disk i/o reads and picks off raw bytes
 // use it for forensic purposes
-func raw() {
-	fd, err := unix.Open(ROOT, unix.O_RDONLY, 0777)
+func raw(path string) {
+	fd, err := unix.Open(path, unix.O_RDONLY, 0777)
 	defer unix.Close(fd)
 	if err != nil {
 		panic(err)

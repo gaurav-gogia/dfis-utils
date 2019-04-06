@@ -7,14 +7,14 @@ import (
 	"golang.org/x/sys/unix"
 )
 
-func comp() {
-	fd, err := unix.Open(ROOT, unix.O_RDONLY, 0777)
+func comp(src, dst string) {
+	fd, err := unix.Open(src, unix.O_RDONLY, 0777)
 	defer unix.Close(fd)
 	if err != nil {
 		panic(err)
 	}
 
-	df, err := unix.Open(ROOT2, unix.O_RDONLY, 0777)
+	df, err := unix.Open(dst, unix.O_RDONLY, 0777)
 	defer unix.Close(fd)
 	if err != nil {
 		panic(err)
