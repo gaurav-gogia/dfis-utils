@@ -28,7 +28,7 @@ Listing utilities with their respective descriptions.
 | [Cryptographic Utilities](./crypto-utils) | A set of cryptographic utilities like hashing, csprn generation etc. |
 | [Web Utilities](./web-utils) | A set of web crawling, osint and pentesting utilities |
 
-==================================================================================================
+======================================================================================
 
 | [Network Utilities](./net-utils) |
 
