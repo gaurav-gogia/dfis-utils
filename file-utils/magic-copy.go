@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	filetype "gopkg.in/h2non/filetype.v1"
+	filetype "github.com/h2non/filetype"
 )
 
 func extract(root, dst string, in int) {
