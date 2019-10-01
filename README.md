@@ -6,7 +6,10 @@
 A repo of utilities built over some period for forensics, anti-forensics, security and analytical purposes 
 
 ## Contributions are Welcome!
-If you are new to Go programming but are still interested then that is also totally fine. Just create an issue or comment on one that you wish to work with and we'll see what can be done. I'm just trying to be as inclusive as possible here :)
+If you are new to Go programming but are still interested then that is also totally fine. 
+Just create an issue or comment on one that you wish to work with and we'll see what can be done. I'm just trying to be as inclusive as possible here :)  
+Go is amazing language yet simple language and you should definitely have it in your skill-set! Want to know why it makes a great choice? [Read here](http://souvikhaldar.info/programming/golang_intro/). 
+
 
 Checkout [Contribution Guidelines](https://github.com/gaurav-gogia/dfis-utils/blob/master/CONTRIBUTING.md), this should help you get started!
 
