@@ -12,7 +12,7 @@ const (
 	FILEPATH = "./read-raw.go"
 	BUFSIZE  = 500
 
-	IMAGE = 1 << iota
+	IMAGE = iota + 1
 	ARCHIVE
 	AUDIO
 	VIDEO
