@@ -37,7 +37,7 @@ The most common tools (found on most operating systems) include:
     1. ping, ping a host to check connectivity (reports packet loss and latency, uses ICMP).     2. traceroute, shows the series of successive systems a packet goes through en route to its                  destination on a network. It works by sending packets with sequential TTLs                    which generate ICMP TTL-exceeded messages from the hosts the packet passes                    through.
     3. ipconfig / ifconfig, The ipconfig command is used on Windows, while the ifconfig command                           is used on Linux, Mac OS X, and other Unix-like operating systems.                            These commands allow you to configure your network interfaces and                             view information about them.
 
-| [Stegnographic Utilities](./stego-utils) |
+| [Steganographic Utilities](./stego-utils) |
 
 Steganography is the technique of hiding secret data within an ordinary, non-secret, file or message in order to avoid detection; the secret data is then extracted at its destination. The use of steganography can be combined with encryption as an extra step for hiding or protecting data.
 
