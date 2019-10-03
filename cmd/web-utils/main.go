@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/souvikhaldar/dfis-utils/pkg/webutils"
+	"dfis-utils/pkg/webutils"
 )
 
 // Global Constants

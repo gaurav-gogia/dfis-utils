@@ -18,11 +18,10 @@ type filenode struct {
 // Global Constants
 const (
 	ROOT     = "./fal"
-	PATH     = "../../"
 	FILEPATH = "./read-raw.go"
 	BUFSIZE  = 500
-
-	IMAGE = 1 << iota
+	PATH     = "../../"
+	IMAGE    = 1 << iota
 	ARCHIVE
 	AUDIO
 	VIDEO

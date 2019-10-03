@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/souvikhaldar/dfis-utils/pkg/netutils"
+	"dfis-utils/pkg/netutils"
 )
 
 func main() {

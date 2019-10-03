@@ -6,8 +6,10 @@ import (
 	"os"
 	"path/filepath"
 
-	filetype "gopkg.in/h2non/filetype.v0"
+	filetype "github.com/h2non/filetype"
 )
+
+// Global Constants
 
 func Extract(root, dst string, in int) {
 	var count int64

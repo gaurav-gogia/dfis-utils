@@ -2,31 +2,26 @@ package main
 
 import (
 	"fmt"
-	"time"
 
-	"github.com/souvikhaldar/dfis-utils/pkg/fileutils"
+	"dfis-utils/pkg/fileutils"
 )
-
-
-
-
 
 func main() {
 	fmt.Println("Reading raw bytes ....")
-	fileutils.Raw(ROOT)
+	fileutils.Raw(fileutils.ROOT)
 
 	fmt.Println("\nReading file info ....")
 	fileutils.Info()
 
 	fmt.Println("\nFinding files using magic numbers ....")
-	fileutils.Extract("../../", "./", IMAGE)
+	fileutils.Extract("../../", "./", fileutils.IMAGE)
 
 	fmt.Println("\nPulling largest files out ....")
-	fileutils.Large(PATH)
+	fileutils.Large(fileutils.PATH)
 
 	fmt.Println("\nPulling recently modified files ....")
-	fileutils.Recent(PATH)
+	fileutils.Recent(fileutils.PATH)
 
 	fmt.Println("\nShredding file ....")
-	fileutils.Del(ROOT)
+	fileutils.Del(fileutils.ROOT)
 }

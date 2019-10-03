@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/souvikhaldar/dfis-utils/pkg/stegoutils"
+	"dfis-utils/pkg/stegoutils"
 )
 
 func main() {
