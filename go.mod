@@ -1,4 +1,4 @@
-module github.com/gaurav-gogia/dfis
+module dfis-utils
 
 go 1.13
 
@@ -14,6 +14,6 @@ require (
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect
 	github.com/temoto/robotstxt v1.1.1 // indirect
-	golang.org/x/sys v0.0.0-20191001151750-bb3f8db39f24
+	golang.org/x/sys v0.0.0-20191002091554-b397fe3ad8ed
 	google.golang.org/appengine v1.6.4 // indirect
 )

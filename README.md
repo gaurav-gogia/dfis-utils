@@ -22,11 +22,11 @@ Listing utilities with their respective descriptions.
 | Name | Description| 
 | :--: | ------ |
 | [Network Utilities](./net-utils) | A set of tools for network monitoring, intel gathering etc. |
-| [Stegnographic Utilities](./stego-utils) | Tools for stegenographic image creation & detection |
+| [Stegnographic Utilities](./stegoutils) | Tools for stegenographic image creation & detection |
 | [Disk/File Utilities](./file-utils) | Small forensic utilities for disk forensic operations |
-| [Packet Level Utilities](./packet-utils) | Tools for saving, capturing and decoding raw network packets |
+| [Packet Level Utilities](./packetutils) | Tools for saving, capturing and decoding raw network packets |
 | [Cryptographic Utilities](./crypto-utils) | A set of cryptographic utilities like hashing, csprn generation etc. |
-| [Web Utilities](./web-utils) | A set of web crawling, osint and pentesting utilities |
+| [Web Utilities](./webutils) | A set of web crawling, osint and pentesting utilities |
 
 ======================================================================================
 
@@ -43,7 +43,7 @@ Steganography is the technique of hiding secret data within an ordinary, non-sec
 
 Steganography tools provide a method that allows a user to hide a file in plain sight. For example, there are a number of stego software tools that allow the user to hide one image inside another. Some of these do it by simply appending the “hidden” file at the tail end of a JPEG file and then add a pointer to the beginning of the file. The most common way that steganography is discovered on a machine is through the detection of the steganography software on the machine. Then comes the arduous task of locating 11 of the files that may possibly contain hidden data. Other, more manual stego techniques may be as simple as hiding text behind other text. In Microsoft Word, text boxes can be placed right over the top of other text, formatted in such a way as to render the text undetectable to a casual observer. Forensic tools will allow the analyst to locate this text, but on opening the file the text won’t be readily visible. Another method is to hide images behind other images using the layers feature of some photo enhancement tools, such as Photoshop.
 
-| [Web Utilities](./web-utils) |
+| [Web Utilities](./webutils) |
 
 There are two categories of web utilities:
 
