@@ -26,7 +26,7 @@ Listing utilities with their respective descriptions.
 | [Disk/File Utilities](./cmd/file-utils) | Small forensic utilities for disk forensic operations |
 | [Packet Level Utilities](./cmd/packet-utils) | Tools for saving, capturing and decoding raw network packets |
 | [Cryptographic Utilities](./cmd/crypto-utils) | A set of cryptographic utilities like hashing, csprn generation etc. |
-| [Web Utilities](./webutils) | A set of web crawling, osint and pentesting utilities |
+| [Web Utilities](./cmd/web-utils) | A set of web crawling, osint and pentesting utilities |
 
 ======================================================================================
 
