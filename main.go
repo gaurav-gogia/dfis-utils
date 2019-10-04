@@ -1,8 +1,8 @@
 package main
 
 import (
+	"dfis-utils/cmd/cryptocmds"
 	"dfis-utils/pkg/cryptoutils"
-	"errors"
 	"fmt"
 	"os"
 
@@ -16,13 +16,13 @@ func main() {
 		cmd.Command("hash", "Compute the hash of a given file.", func(cmd *libcmd.Cmd) {
 			cmd.Bool("small", "s", false, "Reads the entire file into memory at one. Suitable only for small files.")
 			cmd.AddOperand("FILE", "")
-			cmd.Run(cryptoHash)
+			cmd.Run(cryptocmds.CryptoHash)
 		})
 
 		cmd.Command("hmac", "Generates an HMAC password of a given text.", func(cmd *libcmd.Cmd) {
 			cmd.Bool("help", "h", false, "Show this help message.")
 			cmd.AddOperand("INPUT", "")
-			cmd.Run(cryptoHMAC)
+			cmd.Run(cryptocmds.CryptoHMAC)
 		})
 
 		cmd.CommandRun("rand", "Generates a CSPR number.", func(*libcmd.Cmd) error {
@@ -33,7 +33,7 @@ func main() {
 		cmd.Command("aes", "Generate the cypher of a given file.", func(cmd *libcmd.Cmd) {
 			cmd.Bool("help", "h", false, "Show this help message.")
 			cmd.AddOperand("FILE", "")
-			cmd.Run(cryptoAES)
+			cmd.Run(cryptocmds.CryptoAES)
 		})
 	})
 
@@ -46,48 +46,4 @@ func main() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-}
-
-func cryptoHash(cmd *libcmd.Cmd) error {
-	small := cmd.GetBool("small")
-	file := cmd.Operand("FILE")
-
-	if file == "" {
-		return errors.New("you must specify the FILE to hash")
-	}
-
-	if _, err := os.Stat(file); err != nil {
-		return err
-	}
-
-	if *small {
-		return cryptoutils.Smallhash(file)
-	} else {
-		return cryptoutils.Bighash(file)
-	}
-}
-
-func cryptoHMAC(cmd *libcmd.Cmd) error {
-	input := cmd.Operand("INPUT")
-
-	if input == "" {
-		return errors.New("you must specify an INPUT text to hash")
-	}
-
-	cryptoutils.Passtore(input)
-	return nil
-}
-
-func cryptoAES(cmd *libcmd.Cmd) error {
-	file := cmd.Operand("FILE")
-
-	if file == "" {
-		return errors.New("you must specify the FILE to cypher")
-	}
-
-	if _, err := os.Stat(file); err != nil {
-		return err
-	}
-
-	return cryptoutils.Adves(file)
 }
