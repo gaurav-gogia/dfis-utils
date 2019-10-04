@@ -11,6 +11,7 @@ require (
 	github.com/gocolly/colly v1.2.0
 	github.com/google/gopacket v1.1.17
 	github.com/h2non/filetype v1.0.10
+	github.com/ibraimgm/libcmd v0.0.0-20190927163621-2a992a8c2f78
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect
 	github.com/temoto/robotstxt v1.1.1 // indirect
