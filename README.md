@@ -8,7 +8,7 @@ A repo of utilities built over some period for forensics, anti-forensics, securi
 ## Contributions are Welcome!
 If you are new to Go programming but are still interested then that is also totally fine. Just create an issue or comment on one that you wish to work with and we'll see what can be done. I'm just trying to be as inclusive as possible here :)
 
-Checkout [Contribution Guidelines](https://github.com/gaurav-gogia/dfis-utils/blob/master/CONTRIBUTING.md), this should help you get started!
+Checkout [Contribution Guidelines](https://github.com/gaurav-gogia/dfis-utils/blob/master/CONTRIBUTING.md), this should help you get started! Please send all future PRs to our [dev branch](https://github.com/gaurav-gogia/dfis-utils/tree/dev)
 
 ## Features
 1. Versatile: A number of different tools for your kit
