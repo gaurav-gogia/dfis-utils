@@ -9,6 +9,9 @@ import (
 )
 
 func Capture(box *Packetinfo) {
+	if box == nil {
+		return
+	}
 	handle, _ := pcap.OpenLive(box.device, box.snaplen, box.promicious, box.timeout)
 	defer handle.Close()
 
