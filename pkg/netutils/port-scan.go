@@ -7,9 +7,12 @@ import (
 	"time"
 )
 
+const (
+	MAXGOROUTINES = 6000
+)
+
 func Scan() {
 	var wg sync.WaitGroup
-	MAXGOROUTINES := 6000
 	jobs := make(chan int, MAXGOROUTINES)
 	for port := 7000; port <= MAXPORT; port++ {
 		wg.Add(1)
