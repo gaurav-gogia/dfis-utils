@@ -7,10 +7,10 @@ import (
 	"sort"
 )
 
-func Large(root string) {
+func Large(root string, max int) error {
 	var files []filenode
 
-	filepath.Walk(root, func(filepath string, info os.FileInfo, err error) error {
+	err := filepath.Walk(root, func(filepath string, info os.FileInfo, err error) error {
 		if info.IsDir() {
 			return nil
 		}
@@ -19,20 +19,23 @@ func Large(root string) {
 
 		return nil
 	})
+	if err != nil {
+		return err
+	}
 
 	sort.SliceStable(files, func(i, j int) bool {
 		return files[i].fsize > files[j].fsize
 	})
 
 	fmt.Println()
-	if len(files) <= 10 {
-		for i := 0; i < len(files); i++ {
-			fmt.Printf("File %d: %s, %d\n", i, files[i].fname, files[i].fsize)
+	for i, file := range files {
+		fmt.Printf("File %d: %s, %db\n", i+1, file.fname, file.fsize)
+		max--
+
+		if max == 0 {
+			break
 		}
-		return
 	}
 
-	for i := 0; i < 10; i++ {
-		fmt.Printf("File %d: %s, %d\n", i, files[i].fname, files[i].fsize)
-	}
+	return nil
 }
