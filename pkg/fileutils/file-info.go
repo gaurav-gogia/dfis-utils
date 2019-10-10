@@ -2,15 +2,13 @@ package fileutils
 
 import (
 	"fmt"
-	"log"
 	"os"
 )
 
-func Info() {
-	info, err := os.Stat(FILEPATH)
+func Info(path string) error {
+	info, err := os.Stat(path)
 	if err != nil {
-		log.Println(err)
-		return
+		return err
 	}
 
 	fmt.Println("\nName: ", info.Name())
@@ -18,4 +16,5 @@ func Info() {
 	fmt.Println("Mode: ", info.Mode())
 	fmt.Println("Modified Time: ", info.ModTime())
 	fmt.Println("Is Directory: ", info.IsDir())
+	return nil
 }

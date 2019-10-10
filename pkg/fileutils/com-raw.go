@@ -21,10 +21,6 @@ const (
 	FILEPATH = "./read-raw.go"
 	BUFSIZE  = 500
 	PATH     = "../../"
-	IMAGE    = 1 << iota
-	ARCHIVE
-	AUDIO
-	VIDEO
 )
 
 func Comp(src, dst string) {

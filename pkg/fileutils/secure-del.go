@@ -7,14 +7,17 @@ import (
 	"golang.org/x/sys/unix"
 )
 
-func Del(fpath string) {
+func Del(fpath string) error {
 	info, err := os.Stat(fpath)
 	if err != nil {
 		panic(err)
 	}
 
-	writerandom(info.Size(), fpath)
-	os.Remove(fpath)
+	if err := writerandom(info.Size(), fpath); err != nil {
+		return err
+	}
+
+	return os.Remove(fpath)
 }
 
 func getrandom(size int64) []byte {
@@ -23,11 +26,11 @@ func getrandom(size int64) []byte {
 	return data
 }
 
-func writerandom(size int64, fpath string) {
+func writerandom(size int64, fpath string) error {
 	fd, err := unix.Open(fpath, unix.O_WRONLY, 0777)
 	defer unix.Close(fd)
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	for i := int64(0); i <= size; i += BUFSIZE {
@@ -39,6 +42,10 @@ func writerandom(size int64, fpath string) {
 			data = getrandom(BUFSIZE)
 		}
 
-		unix.Write(fd, data)
+		if _, err := unix.Write(fd, data); err != nil {
+			return err
+		}
 	}
+
+	return nil
 }
