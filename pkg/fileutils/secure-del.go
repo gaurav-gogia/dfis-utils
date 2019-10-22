@@ -33,13 +33,13 @@ func writerandom(size int64, fpath string) error {
 		return err
 	}
 
-	for i := int64(0); i <= size; i += BUFSIZE {
+	for i := int64(0); i <= size; i += 500 {
 		var data []byte
 
-		if size-i <= BUFSIZE {
+		if size-i <= 500 {
 			data = getrandom(size - i)
 		} else {
-			data = getrandom(BUFSIZE)
+			data = getrandom(500)
 		}
 
 		if _, err := unix.Write(fd, data); err != nil {
