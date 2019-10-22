@@ -8,13 +8,18 @@ import (
 	"time"
 )
 
-func Fuzz() {
+func Fuzz(url string, maxbytes int) {
 	var active int
 	done := make(chan bool)
+	max := 100
 
-	for fsize := 1; fsize <= MAXBYTES; fsize++ {
-		go run(URL, fsize, done)
+	for fsize := 1; fsize <= maxbytes; fsize++ {
+		go run(url, fsize, done)
 		active++
+		if active >= max {
+			<-done
+			active--
+		}
 	}
 
 	for active > 0 {

@@ -6,25 +6,18 @@ import (
 	"time"
 )
 
-// Global Constants
-const (
-	HOST     = "kamekazi-169920.appspot.com"
-	URL      = "kamekazi-169920.appspot.com:80"
-	IP       = "216.58.196.244" // kamekazi
-	SUBIP    = "216.58.196"
-	MINPORT  = 1
-	MAXBYTES = 2048
-	MAXPORT  = 65535
-)
-
-
-func Grab() {
+func Grab(ipaddr string, startPort, endPort int) {
 	var active int
+	max := 20
 	done := make(chan bool)
 
-	for port := MINPORT; port <= MAXPORT; port++ {
-		go getbanner(IP, port, done)
+	for port := startPort; port <= endPort; port++ {
+		go getbanner(ipaddr, port, done)
 		active++
+		if active >= max {
+			<-done
+			active--
+		}
 	}
 
 	for active > 0 {

@@ -3,33 +3,41 @@ package netutils
 import (
 	"fmt"
 	"net"
-	"sync"
 	"time"
 )
 
 const (
-	MAXGOROUTINES = 6000
+	MAXGOROUTINES = 100
 )
 
-func Scan() {
-	var wg sync.WaitGroup
-	jobs := make(chan int, MAXGOROUTINES)
-	for port := 7000; port <= MAXPORT; port++ {
-		wg.Add(1)
-		jobs <- 1
-		go tcptest(IP, port, &wg, jobs)
+func Scan(ipaddr string, startPort, endPort int) {
+	var active int
+	done := make(chan bool)
+
+	for port := startPort; port <= endPort; port++ {
+		go tcptest(ipaddr, port, done)
+		active++
+		if active > MAXGOROUTINES {
+			<-done
+			active--
+		}
 	}
-	wg.Wait()
+
+	for active > 0 {
+		<-done
+		active--
+	}
 }
 
-func tcptest(ipaddr string, port int, wg *sync.WaitGroup, jobs chan int) {
+func tcptest(ipaddr string, port int, done chan bool) {
 	path := fmt.Sprintf("%s:%d", ipaddr, port)
 	_, err := net.DialTimeout("tcp", path, time.Second*10)
-	<-jobs
-	wg.Done()
+
 	if err != nil {
-		fmt.Println("Error in DialTimeout:", err)
-		return
+		fmt.Printf("Port: %d, IP: %s | CLOSE\n", port, ipaddr)
+	} else {
+		fmt.Printf("Port: %d, IP: %s | OPEN\n", port, ipaddr)
 	}
-	fmt.Printf("Port: %d, IP: %s\n", port, ipaddr)
+
+	done <- true
 }
