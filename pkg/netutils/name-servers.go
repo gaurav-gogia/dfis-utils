@@ -5,9 +5,15 @@ import (
 	"net"
 )
 
-func Nameserver() {
-	servers, _ := net.LookupNS(HOST)
+func NameServer(host string) error {
+	servers, err := net.LookupNS(host)
+	if err != nil {
+		return err
+	}
+
 	for _, name := range servers {
 		fmt.Println(name.Host)
 	}
+
+	return nil
 }

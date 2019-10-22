@@ -3,28 +3,8 @@ package fileutils
 import (
 	"bytes"
 	"fmt"
-	"time"
 
 	"golang.org/x/sys/unix"
-)
-
-type filenode struct {
-	fpath string
-	fname string
-	ftime time.Time
-	fsize int64
-}
-
-// Global Constants
-const (
-	ROOT     = "./fal"
-	FILEPATH = "./read-raw.go"
-	BUFSIZE  = 500
-	PATH     = "../../"
-	IMAGE    = 1 << iota
-	ARCHIVE
-	AUDIO
-	VIDEO
 )
 
 func Comp(src, dst string) {
@@ -55,7 +35,6 @@ func Comp(src, dst string) {
 			fmt.Printf("\rLOSE: %d", i)
 			fmt.Printf("\n\nCONC: %s", buffer)
 			fmt.Printf("\n\nSEQ: %s", buffer2)
-			//	break
 		}
 	}
 }

@@ -5,10 +5,16 @@ import (
 	"net"
 )
 
-func Iptohost() {
-	ip := net.ParseIP(IP)
-	names, _ := net.LookupAddr(ip.String())
+func IPtoHost(ipaddr string) error {
+	ip := net.ParseIP(ipaddr)
+	names, err := net.LookupAddr(ip.String())
+	if err != nil {
+		return err
+	}
+
 	for _, name := range names {
 		fmt.Println(name)
 	}
+
+	return nil
 }
