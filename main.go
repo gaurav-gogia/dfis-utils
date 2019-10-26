@@ -96,7 +96,7 @@ func cmdfile(cmd *libcmd.Cmd) {
 
 // net utlities
 func cmdnet(cmd *libcmd.Cmd) {
-	cmd.Command("iphost", "Resolves ip address to hostname.", func(cmd *libcmd.Cmd) {
+	cmd.Command("iptohost", "Resolves ip address to hostname.", func(cmd *libcmd.Cmd) {
 		cmd.AddOperand("ip", "")
 		cmd.Run(netcmds.IPtoHost)
 	})
