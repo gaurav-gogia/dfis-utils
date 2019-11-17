@@ -7,7 +7,7 @@ A repo of utilities built over some period for forensics, anti-forensics, securi
 
 ## How to use
 1. Make sure you have latest build of go, libpcap & git installed
-2. `go get -u -v github.com/gaurav-gogia/dfis-utils`
+2. `git clone https://github.com/gaurav-gogia/dfis-utils`
 3. Run `dfis -h` binary from `$GOPATH/bin/`
 
 ## Contributions are Welcome!
