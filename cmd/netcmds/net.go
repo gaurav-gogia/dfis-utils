@@ -72,8 +72,8 @@ func Scan(cmd *libcmd.Cmd) error {
 
 func Grab(cmd *libcmd.Cmd) error {
 	ipaddr := cmd.Operand("ip")
-	startPort := cmd.GetInt("startPort")
-	endPort := cmd.GetInt("endPort")
+	startPort := cmd.GetInt("start")
+	endPort := cmd.GetInt("end")
 
 	if ipaddr == "" {
 		return errors.New("you must specify a hostname to use")

@@ -5,15 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
-	"time"
 )
-
-type filenode struct {
-	fpath string
-	fname string
-	ftime time.Time
-	fsize int64
-}
 
 func Large(root string, max int) error {
 	var files []filenode

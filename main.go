@@ -4,6 +4,7 @@ import (
 	"dfis-utils/cmd/cryptocmds"
 	"dfis-utils/cmd/filecmds"
 	"dfis-utils/cmd/netcmds"
+	"dfis-utils/cmd/pktcmds"
 	"dfis-utils/pkg/cryptoutils"
 	"fmt"
 	"os"
@@ -17,6 +18,7 @@ func main() {
 	app.Command("crypto", "Runs the crypto utilities.", cmdcrypto)
 	app.Command("file", "Runs the file utilities", cmdfile)
 	app.Command("net", "Runs the network related utilities", cmdnet)
+	app.Command("pkt", "Runs the packet level utilities", cmdpkt)
 
 	app.Run(func(*libcmd.Cmd) error {
 		app.Help()
@@ -139,5 +141,67 @@ func cmdnet(cmd *libcmd.Cmd) {
 		cmd.Int("maxbytes", "m", 1000, "Max number of bytes to be sent for fuzz.")
 		cmd.AddOperand("url", "")
 		cmd.Run(netcmds.Fuzz)
+	})
+}
+
+func cmdpkt(cmd *libcmd.Cmd) {
+	cmd.Command("devs", "Gets all the available network devices", func(cmd *libcmd.Cmd) {
+		cmd.Run(pktcmds.GetDevs)
+	})
+
+	cmd.Command("listen", "Captures network live traffic", func(cmd *libcmd.Cmd) {
+		cmd.Int32("snaplen", "sl", 2048, "Amount of data captured in each frame, bigger snaplen needs more cpu")
+		cmd.Bool("promiscous", "p", false, "Include traffic that is NOT intended for this machine or not")
+		cmd.Int64("timeout", "t", 0, "How long should packet capture continue? Duration set in seconds")
+		cmd.String("filter", "f", "", "BPF compliant filter before starting capture")
+		cmd.AddOperand("device", "")
+		cmd.Run(pktcmds.GetPkts)
+	})
+
+	cmd.Command("save", "Saves captured traffic", func(cmd *libcmd.Cmd) {
+		cmd.Int32("snaplen", "sl", 2048, "Amount of data captured in each frame, bigger snaplen needs more cpu")
+		cmd.Bool("promiscous", "p", false, "Include traffic that is NOT intended for this machine or not")
+		cmd.Float64("timeout", "t", 10, "How long should packet capture continue? Duration set in seconds")
+		cmd.String("filename", "f", "packet.pcap", "File name for saving captured traffic")
+		cmd.Int64("limit", "l", 1000, "Number of packets to be saved")
+		cmd.AddOperand("device", "")
+		cmd.Run(pktcmds.SavePkts)
+	})
+
+	cmd.Command("read", "Reads specified pcap file", func(cmd *libcmd.Cmd) {
+		cmd.AddOperand("FILE", "")
+		cmd.Run(pktcmds.ReadPkts)
+	})
+
+	cmd.Command("decode", "Decodes live or offline packets", func(cmd *libcmd.Cmd) {
+		cmd.Int32("snaplen", "sl", 2048, "Amount of data captured in each frame, bigger snaplen needs more cpu")
+		cmd.Bool("promiscous", "p", false, "Include traffic that is NOT intended for this machine or not")
+		cmd.Float64("timeout", "t", 10, "How long should packet capture continue? Duration set in seconds")
+		cmd.String("filename", "f", "", "File name for reading captured traffic")
+		cmd.AddOperand("device", "")
+		cmd.Run(pktcmds.DecodePkts)
+	})
+
+	cmd.Command("fast", "Decodes live or offline packets faster than decode option", func(cmd *libcmd.Cmd) {
+		cmd.Int32("snaplen", "sl", 2048, "Amount of data captured in each frame, bigger snaplen needs more cpu")
+		cmd.Bool("promiscous", "p", false, "Include traffic that is NOT intended for this machine or not")
+		cmd.Float64("timeout", "t", 10, "How long should packet capture continue? Duration set in seconds")
+		cmd.String("filename", "f", "", "File name for reading captured traffic")
+		cmd.AddOperand("device", "")
+		cmd.Run(pktcmds.FastDecode)
+	})
+
+	cmd.Command("conv", "Convert bytes into packets, only works on correctly formatter packets", func(cmd *libcmd.Cmd) {
+		cmd.AddOperand("payload", "")
+		cmd.Run(pktcmds.BytePktConv)
+	})
+
+	cmd.Command("make", "Make your own packets", func(cmd *libcmd.Cmd) {
+		cmd.Int32("snaplen", "sl", 2048, "Amount of data captured in each frame, bigger snaplen needs more cpu")
+		cmd.Bool("promiscous", "p", false, "Include traffic that is NOT intended for this machine or not")
+		cmd.Float64("timeout", "t", 10, "How long should packet capture continue? Duration set in seconds")
+		cmd.String("filename", "f", "", "File name for reading captured traffic")
+		cmd.AddOperand("device", "")
+		cmd.Run(pktcmds.MakePkt)
 	})
 }
