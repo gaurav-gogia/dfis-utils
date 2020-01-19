@@ -5,6 +5,7 @@ import (
 	"dfis-utils/cmd/filecmds"
 	"dfis-utils/cmd/netcmds"
 	"dfis-utils/cmd/pktcmds"
+	"dfis-utils/cmd/webcmds"
 	"dfis-utils/pkg/cryptoutils"
 	"fmt"
 	"os"
@@ -19,6 +20,7 @@ func main() {
 	app.Command("file", "Runs the file utilities", cmdfile)
 	app.Command("net", "Runs the network related utilities", cmdnet)
 	app.Command("pkt", "Runs the packet level utilities", cmdpkt)
+	app.Command("web", "Runs the web apps related utilities", cmdweb)
 
 	app.Run(func(*libcmd.Cmd) error {
 		app.Help()
@@ -203,5 +205,42 @@ func cmdpkt(cmd *libcmd.Cmd) {
 		cmd.String("filename", "f", "", "File name for reading captured traffic")
 		cmd.AddOperand("device", "")
 		cmd.Run(pktcmds.MakePkt)
+	})
+}
+
+// web utilities
+func cmdweb(cmd *libcmd.Cmd) {
+	cmd.Command("mails", "Get all email addresses out of a website by crawlling it", func(cmd *libcmd.Cmd) {
+		cmd.AddOperand("url", "")
+		cmd.Run(webcmds.GetMails)
+	})
+
+	cmd.Command("keysearch", "Search a keyword on a webpage through pattern matching", func(cmd *libcmd.Cmd) {
+		cmd.AddOperand("url", "")
+		cmd.String("keyword", "k", "password", "Keyword that should be searched on the page")
+		cmd.Run(webcmds.GetKeyword)
+	})
+
+	cmd.Command("heads", "Read response headers by hitting a url", func(cmd *libcmd.Cmd) {
+		cmd.AddOperand("url", "")
+		cmd.Run(webcmds.GetHeads)
+	})
+
+	cmd.Command("cookie", "Set cookies while sending a request", func(cmd *libcmd.Cmd) {
+		cmd.AddOperand("url", "")
+		cmd.String("method", "m", "GET", "Set the method you wish to add for making your request")
+		cmd.String("key", "k", "cookie", "Set the cookie key you wish to set")
+		cmd.Run(webcmds.SetCookie)
+	})
+
+	cmd.Command("comments", "Read comments on a page by hitting a url", func(cmd *libcmd.Cmd) {
+		cmd.AddOperand("url", "")
+		cmd.Run(webcmds.GetComments)
+	})
+
+	cmd.Command("unlisted", "Get unlisted files of a website", func(cmd *libcmd.Cmd) {
+		cmd.AddOperand("url", "")
+		cmd.String("wordlist", "w", "./list", "A word list with files and directories to perform OSINT")
+		cmd.Run(webcmds.GetComments)
 	})
 }

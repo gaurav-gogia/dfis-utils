@@ -8,19 +8,25 @@ import (
 	"time"
 )
 
-func Keysearch(url, keyword string) {
+func Keysearch(url, keyword string) error {
 	var client http.Client
 	client.Timeout = 30 * time.Second
 
 	res, err := client.Get(url)
-	handle(err)
+	if err != nil {
+		return err
+	}
 
 	body, err := ioutil.ReadAll(res.Body)
-	handle(err)
+	if err != nil {
+		return err
+	}
 
 	if strings.Contains(string(body), keyword) {
 		fmt.Println("Match found for: " + keyword + " in url: " + url)
 	} else {
 		fmt.Println("Not found!")
 	}
+
+	return nil
 }
