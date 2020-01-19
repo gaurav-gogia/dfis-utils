@@ -6,10 +6,6 @@ import (
 	"time"
 )
 
-const (
-	MAXGOROUTINES = 100
-)
-
 func Scan(ipaddr string, startPort, endPort int) {
 	var active int
 	done := make(chan bool)

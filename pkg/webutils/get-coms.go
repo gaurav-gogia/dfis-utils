@@ -1,34 +1,34 @@
 package webutils
 
 import (
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"regexp"
 )
 
-func handle(err error) {
-	if err != nil {
-		fmt.Println(err)
-	}
-}
-
-func Getcoms(url string) {
+func Getcoms(url string) error {
 	res, err := http.Get(url)
-	handle(err)
+	if err != nil {
+		return err
+	}
 
 	body, err := ioutil.ReadAll(res.Body)
-	handle(err)
+	if err != nil {
+		return err
+	}
 
 	re := regexp.MustCompile("<!--(.|\n)*?-->")
 	matches := re.FindAllString(string(body), -1)
 
 	if matches == nil {
-		fmt.Println("No HTML comments found")
-		return
+		return errors.New("No HTML comments found")
 	}
 
 	for _, match := range matches {
 		fmt.Println(match)
 	}
+
+	return nil
 }

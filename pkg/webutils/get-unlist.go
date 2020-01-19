@@ -9,13 +9,15 @@ import (
 	"os"
 )
 
-func Getunlist(url, wordfile string) {
+func Getunlist(url, wordfile string) error {
 	var thread int
 	done := make(chan bool)
 
 	file, err := os.Open(wordfile)
+	if err != nil {
+		return err
+	}
 	defer file.Close()
-	handle(err)
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
@@ -36,16 +38,18 @@ func Getunlist(url, wordfile string) {
 	if err := scanner.Err(); err != nil {
 		log.Fatal("Could not read file")
 	}
+
+	return err
 }
 
 func findurl(base, filepath string, done chan bool) {
 	target, err := url.Parse(base)
-	handle(err)
+	log.Println(err)
 
 	target.Path = filepath
 
 	res, err := http.Head(target.String())
-	handle(err)
+	log.Println(err)
 
 	if res.StatusCode == 200 {
 		if err := down("./data/"+filepath, target.String()); err == nil {

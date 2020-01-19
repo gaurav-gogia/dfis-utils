@@ -6,17 +6,24 @@ import (
 	"net/http"
 )
 
-func Setcook(url string) {
+func Setcook(url, key, value, method string) error {
 	var client http.Client
 
-	req, err := http.NewRequest("GET", url, nil)
-	handle(err)
+	req, err := http.NewRequest(method, url, nil)
+	if err != nil {
+		return err
+	}
 
-	req.Header.Set("Cookie", "session_id=something")
+	req.Header.Set(key, value)
 	res, err := client.Do(req)
-	handle(err)
+	if err != nil {
+		return err
+	}
 
 	data, err := ioutil.ReadAll(res.Body)
-	handle(err)
+	if err != nil {
+		return err
+	}
 	fmt.Printf("%s\n", data)
+	return nil
 }
