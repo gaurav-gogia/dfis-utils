@@ -36,7 +36,7 @@ func main() {
 // crypto utilities
 func cmdcrypto(cmd *libcmd.Cmd) {
 	cmd.Command("hash", "Compute the hash of a given file.", func(cmd *libcmd.Cmd) {
-		cmd.Bool("small", "s", false, "Reads the entire file into memory at one. Suitable only for small files.")
+		cmd.Bool("small", 's', false, "Reads the entire file into memory at one. Suitable only for small files.")
 		cmd.AddOperand("FILE", "")
 		cmd.Run(cryptocmds.CryptoHash)
 	})
@@ -47,7 +47,7 @@ func cmdcrypto(cmd *libcmd.Cmd) {
 	})
 
 	cmd.Command("rand", "Generates a CSPR number.", func(cmd *libcmd.Cmd) {
-		cmd.Bool("help", "h", false, "Show this help message.")
+		cmd.Bool("help", 'h', false, "Show this help message.")
 		cmd.Run(func(*libcmd.Cmd) error {
 			return cryptoutils.Randnum()
 		})
@@ -62,7 +62,7 @@ func cmdcrypto(cmd *libcmd.Cmd) {
 // file utilities
 func cmdfile(cmd *libcmd.Cmd) {
 	cmd.Command("raw", "Read raw bytes from a given file.", func(cmd *libcmd.Cmd) {
-		cmd.Int("bytes", "b", 10, "Number of bytes to read.")
+		cmd.Int("bytes", 'b', 10, "Number of bytes to read.")
 		cmd.AddOperand("FILE", "")
 		cmd.Run(filecmds.FileRaw)
 	})
@@ -73,26 +73,26 @@ func cmdfile(cmd *libcmd.Cmd) {
 	})
 
 	cmd.Command("mcopy", "Copy files from SOURCE to DEST, using magic numbers.", func(cmd *libcmd.Cmd) {
-		cmd.Choice([]string{"image", "archive", "audio", "video"}, "type", "t", "image", "Specify the type of file to copy.")
+		cmd.Choice([]string{"image", "archive", "audio", "video"}, "type", 't', "image", "Specify the type of file to copy.")
 		cmd.AddOperand("SOURCE", "")
 		cmd.AddOperand("DEST", "")
 		cmd.Run(filecmds.MagicCopy)
 	})
 
 	cmd.Command("large", "List the largest files from a given PATH.", func(cmd *libcmd.Cmd) {
-		cmd.Int("max", "m", 10, "Maximum number of files to show.")
+		cmd.Int("max", 'm', 10, "Maximum number of files to show.")
 		cmd.AddOperand("PATH", "")
 		cmd.Run(filecmds.Large)
 	})
 
 	cmd.Command("recent", "List the recently modified files from a given PATH.", func(cmd *libcmd.Cmd) {
-		cmd.Int("max", "m", 10, "Maximum number of files to show.")
+		cmd.Int("max", 'm', 10, "Maximum number of files to show.")
 		cmd.AddOperand("PATH", "")
 		cmd.Run(filecmds.Recent)
 	})
 
 	cmd.Command("shred", "Shreds a given FILE.", func(cmd *libcmd.Cmd) {
-		cmd.Bool("help", "h", false, "Show this help message.")
+		cmd.Bool("help", 'h', false, "Show this help message.")
 		cmd.AddOperand("FILE", "")
 		cmd.Run(filecmds.Shred)
 	})
@@ -121,15 +121,15 @@ func cmdnet(cmd *libcmd.Cmd) {
 	})
 
 	cmd.Command("scan", "Scans a range of ports for a given IP Address.", func(cmd *libcmd.Cmd) {
-		cmd.Int("start", "s", 80, "Starting port in the range to be scanned.")
-		cmd.Int("end", "e", 3000, "Ending port in the range to be scanned.")
+		cmd.Int("start", 's', 80, "Starting port in the range to be scanned.")
+		cmd.Int("end", 'e', 3000, "Ending port in the range to be scanned.")
 		cmd.AddOperand("ip", "")
 		cmd.Run(netcmds.Scan)
 	})
 
 	cmd.Command("grab", "Grabs banners for a range of ports for a given IP Address.", func(cmd *libcmd.Cmd) {
-		cmd.Int("start", "s", 80, "Starting port in the range to be scanned.")
-		cmd.Int("end", "e", 3000, "Ending port in the range to be scanned.")
+		cmd.Int("start", 's', 80, "Starting port in the range to be scanned.")
+		cmd.Int("end", 'e', 3000, "Ending port in the range to be scanned.")
 		cmd.AddOperand("ip", "")
 		cmd.Run(netcmds.Grab)
 	})
@@ -140,7 +140,7 @@ func cmdnet(cmd *libcmd.Cmd) {
 	})
 
 	cmd.Command("fuzz", "Fuzzes a url with random bytes.", func(cmd *libcmd.Cmd) {
-		cmd.Int("maxbytes", "m", 1000, "Max number of bytes to be sent for fuzz.")
+		cmd.Int("maxbytes", 'm', 1000, "Max number of bytes to be sent for fuzz.")
 		cmd.AddOperand("url", "")
 		cmd.Run(netcmds.Fuzz)
 	})
@@ -152,20 +152,20 @@ func cmdpkt(cmd *libcmd.Cmd) {
 	})
 
 	cmd.Command("listen", "Captures network live traffic", func(cmd *libcmd.Cmd) {
-		cmd.Int32("snaplen", "sl", 2048, "Amount of data captured in each frame, bigger snaplen needs more cpu")
-		cmd.Bool("promiscous", "p", false, "Include traffic that is NOT intended for this machine or not")
-		cmd.Int64("timeout", "t", 0, "How long should packet capture continue? Duration set in seconds")
-		cmd.String("filter", "f", "", "BPF compliant filter before starting capture")
+		cmd.Int32("snaplen", 'l', 2048, "Amount of data captured in each frame, bigger snaplen needs more cpu")
+		cmd.Bool("promiscous", 'p', false, "Include traffic that is NOT intended for this machine or not")
+		cmd.Int64("timeout", 't', 0, "How long should packet capture continue? Duration set in seconds")
+		cmd.String("filter", 'f', "", "BPF compliant filter before starting capture")
 		cmd.AddOperand("device", "")
 		cmd.Run(pktcmds.GetPkts)
 	})
 
 	cmd.Command("save", "Saves captured traffic", func(cmd *libcmd.Cmd) {
-		cmd.Int32("snaplen", "sl", 2048, "Amount of data captured in each frame, bigger snaplen needs more cpu")
-		cmd.Bool("promiscous", "p", false, "Include traffic that is NOT intended for this machine or not")
-		cmd.Float64("timeout", "t", 10, "How long should packet capture continue? Duration set in seconds")
-		cmd.String("filename", "f", "packet.pcap", "File name for saving captured traffic")
-		cmd.Int64("limit", "l", 1000, "Number of packets to be saved")
+		cmd.Int32("snaplen", 'l', 2048, "Amount of data captured in each frame, bigger snaplen needs more cpu")
+		cmd.Bool("promiscous", 'p', false, "Include traffic that is NOT intended for this machine or not")
+		cmd.Float64("timeout", 't', 10, "How long should packet capture continue? Duration set in seconds")
+		cmd.String("filename", 'f', "packet.pcap", "File name for saving captured traffic")
+		cmd.Int64("limit", 'l', 1000, "Number of packets to be saved")
 		cmd.AddOperand("device", "")
 		cmd.Run(pktcmds.SavePkts)
 	})
@@ -176,19 +176,19 @@ func cmdpkt(cmd *libcmd.Cmd) {
 	})
 
 	cmd.Command("decode", "Decodes live or offline packets", func(cmd *libcmd.Cmd) {
-		cmd.Int32("snaplen", "sl", 2048, "Amount of data captured in each frame, bigger snaplen needs more cpu")
-		cmd.Bool("promiscous", "p", false, "Include traffic that is NOT intended for this machine or not")
-		cmd.Float64("timeout", "t", 10, "How long should packet capture continue? Duration set in seconds")
-		cmd.String("filename", "f", "", "File name for reading captured traffic")
+		cmd.Int32("snaplen", 'l', 2048, "Amount of data captured in each frame, bigger snaplen needs more cpu")
+		cmd.Bool("promiscous", 'p', false, "Include traffic that is NOT intended for this machine or not")
+		cmd.Float64("timeout", 't', 10, "How long should packet capture continue? Duration set in seconds")
+		cmd.String("filename", 'f', "", "File name for reading captured traffic")
 		cmd.AddOperand("device", "")
 		cmd.Run(pktcmds.DecodePkts)
 	})
 
 	cmd.Command("fast", "Decodes live or offline packets faster than decode option", func(cmd *libcmd.Cmd) {
-		cmd.Int32("snaplen", "sl", 2048, "Amount of data captured in each frame, bigger snaplen needs more cpu")
-		cmd.Bool("promiscous", "p", false, "Include traffic that is NOT intended for this machine or not")
-		cmd.Float64("timeout", "t", 10, "How long should packet capture continue? Duration set in seconds")
-		cmd.String("filename", "f", "", "File name for reading captured traffic")
+		cmd.Int32("snaplen", 'l', 2048, "Amount of data captured in each frame, bigger snaplen needs more cpu")
+		cmd.Bool("promiscous", 'p', false, "Include traffic that is NOT intended for this machine or not")
+		cmd.Float64("timeout", 't', 10, "How long should packet capture continue? Duration set in seconds")
+		cmd.String("filename", 'f', "", "File name for reading captured traffic")
 		cmd.AddOperand("device", "")
 		cmd.Run(pktcmds.FastDecode)
 	})
@@ -199,10 +199,10 @@ func cmdpkt(cmd *libcmd.Cmd) {
 	})
 
 	cmd.Command("make", "Make your own packets", func(cmd *libcmd.Cmd) {
-		cmd.Int32("snaplen", "sl", 2048, "Amount of data captured in each frame, bigger snaplen needs more cpu")
-		cmd.Bool("promiscous", "p", false, "Include traffic that is NOT intended for this machine or not")
-		cmd.Float64("timeout", "t", 10, "How long should packet capture continue? Duration set in seconds")
-		cmd.String("filename", "f", "", "File name for reading captured traffic")
+		cmd.Int32("snaplen", 'l', 2048, "Amount of data captured in each frame, bigger snaplen needs more cpu")
+		cmd.Bool("promiscous", 'p', false, "Include traffic that is NOT intended for this machine or not")
+		cmd.Float64("timeout", 't', 10, "How long should packet capture continue? Duration set in seconds")
+		cmd.String("filename", 'f', "", "File name for reading captured traffic")
 		cmd.AddOperand("device", "")
 		cmd.Run(pktcmds.MakePkt)
 	})
@@ -217,7 +217,7 @@ func cmdweb(cmd *libcmd.Cmd) {
 
 	cmd.Command("keysearch", "Search a keyword on a webpage through pattern matching", func(cmd *libcmd.Cmd) {
 		cmd.AddOperand("url", "")
-		cmd.String("keyword", "k", "password", "Keyword that should be searched on the page")
+		cmd.String("keyword", 'k', "password", "Keyword that should be searched on the page")
 		cmd.Run(webcmds.GetKeyword)
 	})
 
@@ -228,8 +228,8 @@ func cmdweb(cmd *libcmd.Cmd) {
 
 	cmd.Command("cookie", "Set cookies while sending a request", func(cmd *libcmd.Cmd) {
 		cmd.AddOperand("url", "")
-		cmd.String("method", "m", "GET", "Set the method you wish to add for making your request")
-		cmd.String("key", "k", "cookie", "Set the cookie key you wish to set")
+		cmd.String("method", 'm', "GET", "Set the method you wish to add for making your request")
+		cmd.String("key", 'k', "cookie", "Set the cookie key you wish to set")
 		cmd.Run(webcmds.SetCookie)
 	})
 
@@ -240,7 +240,7 @@ func cmdweb(cmd *libcmd.Cmd) {
 
 	cmd.Command("unlisted", "Get unlisted files of a website", func(cmd *libcmd.Cmd) {
 		cmd.AddOperand("url", "")
-		cmd.String("wordlist", "w", "./list", "A word list with files and directories to perform OSINT")
+		cmd.String("wordlist", 'w', "./list", "A word list with files and directories to perform OSINT")
 		cmd.Run(webcmds.GetComments)
 	})
 }
