@@ -1,4 +1,4 @@
-FROM golang:1.15
+FROM golang:latest
 
 WORKDIR /go/src/dfis-utils
 COPY . .
