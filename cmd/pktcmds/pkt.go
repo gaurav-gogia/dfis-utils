@@ -122,7 +122,7 @@ func getboxbasics(cmd *libcmd.Cmd) (pktutils.PktInfo, error) {
 	device := cmd.Operand("device")
 	snaplen := cmd.GetInt32("snaplen")
 	promicious := cmd.GetBool("promiscous")
-	timeout := cmd.GetFloat64("timeout")
+	timeout := cmd.GetInt64("timeout")
 
 	if device == "" {
 		return box, errors.New("you must specify a device to capture traffic")
