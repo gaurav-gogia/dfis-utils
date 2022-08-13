@@ -1,6 +1,7 @@
 package fileutils
 
 import (
+	"dfis-utils/pkg/helper"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -29,7 +30,8 @@ func Large(root string, max int) error {
 
 	fmt.Println()
 	for i, file := range files {
-		fmt.Printf("File %d: %s, %db\n", i+1, file.fname, file.fsize)
+		size := helper.HumanizeSize(file.fsize)
+		fmt.Printf("File %d: %s, %s\n", i+1, file.fname, size)
 		max--
 
 		if max == 0 {
