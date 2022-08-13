@@ -47,7 +47,6 @@ func cmdcrypto(cmd *libcmd.Cmd) {
 	})
 
 	cmd.Command("rand", "Generates a CSPR number.", func(cmd *libcmd.Cmd) {
-		cmd.Bool("help", 'h', false, "Show this help message.")
 		cmd.Run(func(*libcmd.Cmd) error {
 			return cryptoutils.Randnum()
 		})
@@ -92,9 +91,15 @@ func cmdfile(cmd *libcmd.Cmd) {
 	})
 
 	cmd.Command("shred", "Shreds a given FILE.", func(cmd *libcmd.Cmd) {
-		cmd.Bool("help", 'h', false, "Show this help message.")
 		cmd.AddOperand("FILE", "")
 		cmd.Run(filecmds.Shred)
+	})
+
+	cmd.Command("comp", "Compares two files at byte level using provided buffer size.", func(cmd *libcmd.Cmd) {
+		cmd.AddOperand("SOURCE", "")
+		cmd.AddOperand("DEST", "")
+		cmd.Int64("buffersize", 'b', 512, "Buffer size to use while comparing files.")
+		cmd.Run(filecmds.FileCompare)
 	})
 }
 

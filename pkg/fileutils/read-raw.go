@@ -2,21 +2,20 @@ package fileutils
 
 import (
 	"fmt"
-
-	"golang.org/x/sys/unix"
+	"os"
 )
 
 // raw function performs low level disk i/o reads and picks off raw bytes
 // use it for forensic purposes
 func Raw(path string, size int) error {
-	fd, err := unix.Open(path, unix.O_RDONLY, 0777)
-	defer unix.Close(fd)
+	fd, err := os.Open(path)
 	if err != nil {
 		return err
 	}
+	defer fd.Close()
 
 	buffer := make([]byte, size)
-	if _, err := unix.Read(fd, buffer); err != nil {
+	if _, err := fd.Read(buffer); err != nil {
 		return err
 	}
 
