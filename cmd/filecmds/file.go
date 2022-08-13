@@ -91,3 +91,23 @@ func Shred(cmd *libcmd.Cmd) error {
 
 	return fileutils.Del(file)
 }
+
+func FileCompare(cmd *libcmd.Cmd) error {
+	src := cmd.Operand("SOURCE")
+	dst := cmd.Operand("DEST")
+	bs := cmd.GetInt64("buffersize")
+
+	if src == "" {
+		return errors.New("you need to specify the SOURCE")
+	}
+
+	if dst == "" {
+		return errors.New("you need to specify the DEST")
+	}
+
+	if *bs <= int64(0) {
+		return errors.New("buffer must be a positive number")
+	}
+
+	return fileutils.Comp(src, dst, *bs)
+}

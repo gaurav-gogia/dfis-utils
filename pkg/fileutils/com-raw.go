@@ -3,38 +3,67 @@ package fileutils
 import (
 	"bytes"
 	"fmt"
-
-	"golang.org/x/sys/unix"
+	"os"
 )
 
-func Comp(src, dst string) {
-	fd, err := unix.Open(src, unix.O_RDONLY, 0777)
-	defer unix.Close(fd)
+func Comp(src, dst string, bufferSize int64) error {
+	size, err := getSize(src, dst)
 	if err != nil {
-		panic(err)
+		return err
 	}
 
-	df, err := unix.Open(dst, unix.O_RDONLY, 0777)
-	defer unix.Close(fd)
+	fd, err := os.Open(src)
 	if err != nil {
-		panic(err)
+		return err
 	}
+	defer fd.Close()
 
-	bs := int64(1000)
+	df, err := os.Open(dst)
+	if err != nil {
+		return err
+	}
+	defer df.Close()
 
-	for i := int64(0); i < 7759462400; i += bs {
-		buffer := make([]byte, bs)
-		unix.Read(fd, buffer)
+	for i := int64(0); i < size; i += bufferSize {
+		buffer := make([]byte, bufferSize)
+		fd.Read(buffer)
 
-		buffer2 := make([]byte, bs)
-		unix.Read(df, buffer2)
+		buffer2 := make([]byte, bufferSize)
+		df.Read(buffer2)
 
-		if bytes.Compare(buffer, buffer2) == 0 {
-			fmt.Printf("\rWIN: %d", i)
-		} else {
-			fmt.Printf("\rLOSE: %d", i)
-			fmt.Printf("\n\nCONC: %s", buffer)
-			fmt.Printf("\n\nSEQ: %s", buffer2)
+		if bytes.Equal(buffer, buffer2) {
+			continue
 		}
+
+		fmt.Printf("\n")
+
+		fmt.Println("DIFF AT: ", i)
+		fmt.Println("SRC: ", buffer)
+		fmt.Println()
+		fmt.Println("DST: ", buffer2)
+
+		fmt.Printf("\n")
 	}
+
+	return nil
+}
+
+func getSize(src, dst string) (int64, error) {
+	info, err := os.Stat(src)
+	if err != nil {
+		return 0, err
+	}
+	srcsize := info.Size()
+
+	info, err = os.Stat(dst)
+	if err != nil {
+		return 0, err
+	}
+	dstsize := info.Size()
+
+	if srcsize > dstsize {
+		return srcsize, nil
+	}
+
+	return dstsize, nil
 }
