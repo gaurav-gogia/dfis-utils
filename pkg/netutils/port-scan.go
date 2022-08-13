@@ -1,6 +1,7 @@
 package netutils
 
 import (
+	"dfis-utils/pkg/helper"
 	"fmt"
 	"net"
 	"time"
@@ -13,7 +14,7 @@ func Scan(ipaddr string, startPort, endPort int) {
 	for port := startPort; port <= endPort; port++ {
 		go tcptest(ipaddr, port, done)
 		active++
-		if active > MAXGOROUTINES {
+		if active > helper.MAXGOROUTINES {
 			<-done
 			active--
 		}

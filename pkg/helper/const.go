@@ -1,4 +1,4 @@
-package netutils
+package helper
 
 const (
 	MAXGOROUTINES = 100
