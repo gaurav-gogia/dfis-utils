@@ -85,6 +85,7 @@ func Recent(cmd *libcmd.Cmd) error {
 func Shred(cmd *libcmd.Cmd) error {
 	file := cmd.Operand("FILE")
 	passes := cmd.GetInt("passes")
+	bs := cmd.GetInt64("buffersize")
 
 	if file == "" {
 		return errors.New("you need to specify the FILE")
@@ -94,7 +95,11 @@ func Shred(cmd *libcmd.Cmd) error {
 		return errors.New("number of passes must be more than 0")
 	}
 
-	return fileutils.Del(*passes, file)
+	if *bs <= int64(0) {
+		return errors.New("buffer size must be more than 0")
+	}
+
+	return fileutils.Del(*passes, *bs, file)
 }
 
 func FileCompare(cmd *libcmd.Cmd) error {

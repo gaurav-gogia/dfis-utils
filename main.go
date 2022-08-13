@@ -91,7 +91,8 @@ func cmdfile(cmd *libcmd.Cmd) {
 	})
 
 	cmd.Command("shred", "Shreds a given FILE.", func(cmd *libcmd.Cmd) {
-		cmd.Int("passes", 'p', 2, "Passes is the number of times a file must be re-written")
+		cmd.Int("passes", 'p', 2, "Passes is the number of times a file must be re-written.")
+		cmd.Int64("buffersize", 'b', 512, "Buffer size to use while comparing files.")
 		cmd.AddOperand("FILE", "")
 		cmd.Run(filecmds.Shred)
 	})

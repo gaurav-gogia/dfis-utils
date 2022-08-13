@@ -9,14 +9,14 @@ import (
 	"path/filepath"
 )
 
-func Del(passes int, fpath string) error {
+func Del(passes int, bufferSize int64, fpath string) error {
 	info, err := os.Stat(fpath)
 	if err != nil {
 		return err
 	}
 
 	for i := 0; i < passes; i++ {
-		err = writerandom(info.Size(), fpath)
+		err = writerandom(info.Size(), bufferSize, fpath)
 		if err != nil {
 			return err
 		}
@@ -39,7 +39,7 @@ func getrandom(size int64) []byte {
 	return data
 }
 
-func writerandom(size int64, fpath string) error {
+func writerandom(size, bufferSize int64, fpath string) error {
 	fd, err := os.OpenFile(fpath, os.O_WRONLY, fs.ModePerm)
 	if err != nil {
 		return err
@@ -51,7 +51,6 @@ func writerandom(size int64, fpath string) error {
 	for i := int64(0); i <= size; i += int64(512) {
 		active++
 
-		bufferSize := int64(512)
 		if size-i < 512 {
 			bufferSize = size - i
 		}
