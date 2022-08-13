@@ -2,18 +2,17 @@ package fileutils
 
 import (
 	"crypto/rand"
+	"io/fs"
 	"os"
-
-	"golang.org/x/sys/unix"
 )
 
 func Del(fpath string) error {
-	info, err := os.Stat(fpath)
+	_, err := os.Stat(fpath)
 	if err != nil {
 		panic(err)
 	}
 
-	if err := writerandom(info.Size(), fpath); err != nil {
+	if err := writerandom(fpath); err != nil {
 		return err
 	}
 
@@ -26,23 +25,19 @@ func getrandom(size int64) []byte {
 	return data
 }
 
-func writerandom(size int64, fpath string) error {
-	fd, err := unix.Open(fpath, unix.O_WRONLY, 0777)
-	defer unix.Close(fd)
+func writerandom(fpath string) error {
+	fd, err := os.OpenFile(fpath, os.O_WRONLY, fs.ModePerm)
 	if err != nil {
 		return err
 	}
+	defer fd.Close()
 
-	for i := int64(0); i <= size; i += 500 {
+	for i := int64(0); i <= 10; i++ {
 		var data []byte
 
-		if size-i <= 500 {
-			data = getrandom(size - i)
-		} else {
-			data = getrandom(500)
-		}
+		data = getrandom(500)
 
-		if _, err := unix.Write(fd, data); err != nil {
+		if _, err := fd.Write(data); err != nil {
 			return err
 		}
 	}
