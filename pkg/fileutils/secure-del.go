@@ -22,15 +22,22 @@ func Del(passes int, bufferSize int64, fpath string) error {
 		}
 	}
 
-	name := base32.StdEncoding.EncodeToString(getrandom(20))
-	oldDir := filepath.Dir(fpath)
-	newPath := filepath.Join(oldDir, name)
+	newPath := getNewPath(fpath)
 	err = os.Rename(fpath, newPath)
 	if err != nil {
 		return err
 	}
 
 	return os.Remove(newPath)
+}
+
+func getNewPath(oldPath string) string {
+	oldDir := filepath.Dir(oldPath)
+	oldFileName := filepath.Base(oldPath)
+	oldNameLen := int64(len(oldFileName))
+	randomName := getrandom(oldNameLen)
+	name := base32.StdEncoding.EncodeToString(randomName)
+	return filepath.Join(oldDir, name)
 }
 
 func getrandom(size int64) []byte {
